@@ -12,10 +12,13 @@ jobs:
           sudo apt update
           sudo apt install -y xfce4 xfce4-goodies xrdp
           sudo systemctl enable xrdp
-          sudo adduser --disabled-password --gecos "" runner
-          echo 'runner:123456' | sudo chpasswd
-          sudo usermod -aG sudo runner
+          
+          # Tambah user 'rakwci' kalau belum ada
+          id -u rakwci &>/dev/null || sudo adduser --disabled-password --gecos "" rakwci
+          echo 'rakwci:123456' | sudo chpasswd
+          sudo usermod -aG sudo rakwci
+
           sudo systemctl start xrdp
           curl ifconfig.me
           sleep 21600
-          
+
