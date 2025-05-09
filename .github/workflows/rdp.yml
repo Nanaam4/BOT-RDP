@@ -1,0 +1,21 @@
+name: Free RDP Ubuntu
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup RDP
+        run: |
+          sudo apt update
+          sudo apt install -y xfce4 xfce4-goodies xrdp
+          sudo systemctl enable xrdp
+          sudo adduser --disabled-password --gecos "" runner
+          echo 'runner:123456' | sudo chpasswd
+          sudo usermod -aG sudo runner
+          sudo systemctl start xrdp
+          curl ifconfig.me
+          sleep 21600
+          
